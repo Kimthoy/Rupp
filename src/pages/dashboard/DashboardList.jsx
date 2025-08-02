@@ -1,73 +1,65 @@
-import React from "react";
-import ProductCard from "../../components/ProductCard";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ProductCard from "../../components/ProductCard";
 import SuggestedCategories from "./SuggestedCategories";
 import CustomerReviews from "./CustomerReviews";
-const featuredProducts = [
-  {
-    name: "Summer Dress",
-    image:
-      "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 49.99,
-  },
-  {
-    name: "Men's Shirt",
-    image:
-      "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 39.99,
-  },
-  {
-    name: "Kids Jacket",
-    image:
-      "https://images.pexels.com/photos/3661350/pexels-photo-3661350.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 29.99,
-  },
-  {
-    name: "Leather Bag",
-    image:
-      "https://images.pexels.com/photos/1667072/pexels-photo-1667072.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 59.99,
-  },
-];
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { useCart } from "../../context/CartContext";
+import { toast } from "react-hot-toast";
+import { mockData, categories } from "../../data/mockData"; // ✅ Fixed import
 
 const Home = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cartItems, addToCart } = useCart();
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setIsCartOpen(true);
+    toast.success(`${product.name} added to cart!`);
+  };
+
+  const featured = mockData.slice(0, 8); // ✅ Use only a few for featured display
+  const sliderData = mockData.slice(0, 5); // ✅ Optional: limit slider items for focus
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
+      {/* Hero Slider */}
       <div className="mb-10">
-        <img
-          src="https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=1600"
-          alt="Hero"
-          className="w-full h-96 object-cover rounded-xl"
-        />
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop
+          autoplay={{ delay: 3000 }}
+          pagination={{ clickable: true }}
+          navigation
+          className="rounded-xl"
+        >
+          {sliderData.map((product, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative w-full h-96">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full object-cover h-full"
+                />
+                <div className="absolute bottom-6 left-6 text-white text-xl font-bold bg-black bg-opacity-50 px-4 py-2 rounded">
+                  {product.name}
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
+
+      {/* Categories */}
       <h2 className="text-2xl font-bold mb-4">Shop by Category</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-        {[
-          {
-            name: "Women",
-            image:
-              "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=600",
-            path: "women",
-          },
-          {
-            name: "Men",
-            image:
-              "https://images.pexels.com/photos/3775533/pexels-photo-3775533.jpeg?auto=compress&cs=tinysrgb&w=600",
-            path: "men",
-          },
-          {
-            name: "Kids",
-            image:
-              "https://images.pexels.com/photos/3662840/pexels-photo-3662840.jpeg?auto=compress&cs=tinysrgb&w=600",
-            path: "kids",
-          },
-          {
-            name: "Accessories",
-            image:
-              "https://images.pexels.com/photos/179909/pexels-photo-179909.jpeg?auto=compress&cs=tinysrgb&w=600",
-            path: "accessories",
-          },
-        ].map((cat, index) => (
+        {categories.map((cat, index) => (
           <Link
             key={index}
             to={`/category/${cat.path}`}
@@ -84,6 +76,8 @@ const Home = () => {
           </Link>
         ))}
       </div>
+
+      {/* Promo Section */}
       <div className="bg-blue-100 rounded-xl p-6 text-center mb-12">
         <h3 className="text-xl font-semibold mb-2">Summer Sale</h3>
         <p className="text-gray-700 mb-3">Up to 40% off selected items</p>
@@ -94,14 +88,28 @@ const Home = () => {
           Shop Now
         </Link>
       </div>
+
+      {/* Featured Products */}
       <h2 className="text-2xl font-bold mb-6">Featured Products</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {featuredProducts.map((p, i) => (
-          <ProductCard key={i} product={p} />
+        {featured.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={handleAddToCart}
+          />
         ))}
       </div>
+
+      {/* Category Suggestions & Reviews */}
       <SuggestedCategories />
-      <CustomerReviews />
+      <CustomerReviews
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        cartItems={cartItems}
+      />
+
+      {/* Newsletter */}
       <div className="bg-gray-100 mt-16 p-6 text-center rounded-xl">
         <h3 className="text-lg font-bold mb-2">Join Our Newsletter</h3>
         <p className="text-sm text-gray-600 mb-4">

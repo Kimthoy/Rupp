@@ -1,7 +1,12 @@
 import React from "react";
 import { FaHeart, FaRandom, FaEye } from "react-icons/fa";
-
-const ProductCard = ({ product }) => {
+import { useWishlist } from "../context/WishlistContext";
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { useCompare } from "../context/CompareContext";
+const ProductCard = ({ product, onAddToCart = () => {} }) => {
+  const { addToWishlist } = useWishlist();
+  const { addToCompare } = useCompare();
   return (
     <div className="group relative bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
       <div className="relative overflow-hidden">
@@ -12,18 +17,35 @@ const ProductCard = ({ product }) => {
         />
 
         <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-out">
-          <button className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110">
+          <button
+            onClick={() => {
+              addToWishlist(product);
+              toast.success(`${product.name} added to wishlist!`);
+            }}
+            className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110"
+          >
             <FaHeart className="text-gray-700 text-sm" />
           </button>
-          <button className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110">
+          <button
+            onClick={() => {
+              addToCompare(product);
+              toast.success(`${product.name} added to compare!`);
+            }}
+            className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110"
+          >
             <FaRandom className="text-gray-700 text-sm" />
           </button>
-          <button className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110">
-            <FaEye className="text-gray-700 text-sm" />
-          </button>
+          <Link to={`/product/${product.id}`}>
+            <button className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110">
+              <FaEye className="text-gray-700 text-sm" />
+            </button>
+          </Link>
         </div>
 
-        <button className="absolute text-md bottom-4 left-1/2 transform -translate-x-1/2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-white hover:bg-black text-black  px-2 py-2  shadow hover:text-white transition-all duration-300 ease-out">
+        <button
+          onClick={() => onAddToCart && onAddToCart(product)}
+          className="absolute text-md bottom-4 left-1/2 transform -translate-x-1/2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-white hover:bg-black text-black  px-2 py-2  shadow hover:text-white transition-all duration-300 ease-out"
+        >
           ADD TO CART
         </button>
       </div>

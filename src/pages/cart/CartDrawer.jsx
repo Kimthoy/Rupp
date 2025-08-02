@@ -1,10 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-
+import { useCart } from "../../context/CartContext";
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 const CartDrawer = ({ isOpen, onClose }) => {
   const drawerRef = useRef(null);
-
-  // Handle click outside
+  const { cartItems, removeFromCart } = useCart();
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (drawerRef.current && !drawerRef.current.contains(e.target)) {
@@ -20,18 +21,23 @@ const CartDrawer = ({ isOpen, onClose }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isOpen, onClose]);
-useEffect(() => {
-  if (isOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
 
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [isOpen]);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price * (item.quantity || 1),
+    0
+  );
 
+  const [agreed, setAgreed] = useState(false);
   return (
     <>
       {/* Overlay */}
@@ -70,20 +76,54 @@ useEffect(() => {
           </p>
         </div>
 
-        {/* Cart item */}
-        <div className="flex items-center gap-4 p-4 border-b">
-          <img
-            src="https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&w=100"
-            alt="Item"
-            className="w-16 h-16 rounded object-cover"
-          />
-          <div className="flex-1">
-            <h4 className="font-medium">Faux-leather trousers</h4>
-            <p className="text-sm text-gray-500">XL / Blue</p>
-            <p className="text-sm mt-1">1 x $79.99</p>
+        {cartItems.map((item, idx) => (
+          <div key={idx} className="flex items-center gap-4 p-4 border-b">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-16 h-16 object-cover"
+            />
+            <div className="flex-1">
+              <h4 className="font-medium">{item.name}</h4>
+              <p className="text-sm mt-1">1 x ${item.price}</p>
+            </div>
+            <button
+              onClick={() =>
+                toast((t) => (
+                  <span className="text-sm">
+                    Are you sure you want to remove <strong>{item.name}</strong>
+                    ?
+                    <span>
+                      This will deleted from your cart , then you can add it
+                      from shop more.
+                    </span>
+                    <div className="mt-2 flex justify-end gap-2">
+                      <button
+                        onClick={() => {
+                          removeFromCart(item.name);
+                          toast.dismiss(t.id);
+                          toast.success(`${item.name} removed from cart`);
+                        }}
+                        className="text-white bg-red-500 hover:bg-red-600 px-3 py-1 text-xs rounded"
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={() => toast.dismiss(t.id)}
+                        className="text-gray-700 border px-3 py-1 text-xs rounded"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </span>
+                ))
+              }
+              className="text-red-600 text-sm font-medium"
+            >
+              Remove
+            </button>
           </div>
-          <button className="text-red-600 text-sm font-medium">Remove</button>
-        </div>
+        ))}
 
         {/* Tabs */}
         <div className="flex justify-around border-b py-2 text-sm text-gray-700">
@@ -96,10 +136,17 @@ useEffect(() => {
         <div className="p-4 mt-auto border-t">
           <div className="flex justify-between font-medium mb-3">
             <span>Subtotal</span>
-            <span>$79.99</span>
+            <div className="flex justify-between font-medium mb-3">
+              <span>${subtotal.toFixed(2)}</span>
+            </div>
           </div>
           <label className="flex items-start text-sm mb-4 gap-2">
-            <input type="checkbox" className="mt-1" />
+            <input
+              type="checkbox"
+              className="mt-1"
+              checked={agreed}
+              onChange={() => setAgreed(!agreed)}
+            />
             <span>
               I agree with{" "}
               <a href="#" className="underline">
@@ -111,12 +158,22 @@ useEffect(() => {
             <button className="flex-1 border px-4 py-2 rounded">
               View Cart
             </button>
-            <button className="flex-1 bg-black text-white px-4 py-2 rounded">
+            <button
+              className={`flex-1 px-4 py-2 rounded ${
+                agreed
+                  ? "bg-black text-white hover:bg-gray-900"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              }`}
+              disabled={!agreed}
+            >
               Check Out
             </button>
           </div>
-          <p className="text-center text-sm mt-3 text-gray-500">
-            OR CONTINUE SHOPPING
+          <p
+            className="text-center text-sm mt-3 text-gray-500"
+            onClick={onClose}
+          >
+            <Link to="/"> OR CONTINUE SHOPPING</Link>
           </p>
         </div>
       </div>

@@ -1,43 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { mockData } from "../../data/mockData"; // adjust path as needed
 
-const categories = [
-  {
-    name: "Promotion",
-    image:
-      "https://images.pexels.com/photos/7679866/pexels-photo-7679866.jpeg?auto=compress&cs=tinysrgb&w=600",
-    count: 12,
-    path: "/category/promotion",
-  },
-  {
-    name: "Clothing",
-    image:
-      "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&w=600",
-    count: 12,
-    path: "/category/clothing",
-  },
-  {
-    name: "Shoes",
-    image:
-      "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600",
-    count: 12,
-    path: "/category/shoes",
-  },
-  {
-    name: "Bags",
-    image:
-      "https://images.pexels.com/photos/1667072/pexels-photo-1667072.jpeg?auto=compress&cs=tinysrgb&w=600",
-    count: 12,
-    path: "/category/bags",
-  },
-  {
-    name: "New In",
-    image:
-      "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&w=600",
-    count: 12,
-    path: "/category/new-in",
-  },
-];
+// Create category groups from mockData
+const groupedCategories = Object.entries(
+  mockData.reduce((acc, product) => {
+    const { category, image } = product;
+    if (!acc[category]) {
+      acc[category] = {
+        name: category.charAt(0).toUpperCase() + category.slice(1),
+        image,
+        count: 1,
+        path: `/category/${category}`,
+      };
+    } else {
+      acc[category].count += 1;
+    }
+    return acc;
+  }, {})
+).map(([key, value]) => value);
 
 const SuggestedCategories = () => {
   return (
@@ -53,7 +34,7 @@ const SuggestedCategories = () => {
       </div>
 
       <div className="overflow-x-auto flex gap-6 scrollbar-hide">
-        {categories.map((cat, index) => (
+        {groupedCategories.map((cat, index) => (
           <Link
             to={cat.path}
             key={index}
