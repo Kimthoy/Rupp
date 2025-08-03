@@ -47,7 +47,7 @@ const ProductCard = ({ product, onAddToCart = () => {} }) => {
         </div>
 
         <button
-          onClick={() => onAddToCart && onAddToCart(product)}
+          onClick={() => onAddToCart(product)}
           className="absolute text-md bottom-4 left-1/2 transform -translate-x-1/2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-white hover:bg-black text-black px-2 py-2 shadow hover:text-white transition-all duration-300 ease-out z-20"
         >
           ADD TO CART

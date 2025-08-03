@@ -1,9 +1,15 @@
 import React from "react";
 import { useWishlist } from "../../context/WishlistContext";
+import { useCart } from "../../context/CartContext";
 import ProductCard from "../../components/ProductCard";
 import { toast } from "react-hot-toast";
 const Wishlist = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart();
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    toast.success(`${product.name} added to cart!`);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-10">
@@ -15,7 +21,10 @@ const Wishlist = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {wishlist.map((product, index) => (
             <div key={index} className="relative">
-              <ProductCard product={product} />
+              <ProductCard
+                product={product}
+                onAddToCart={handleAddToCart} 
+              />
               <button
                 onClick={() => {
                   toast((t) => (
@@ -24,8 +33,8 @@ const Wishlist = () => {
                         Remove <b>{product.name}</b> from wishlist?
                       </span>
                       <span>
-                        This will delete from your wishlist then you can added
-                        it more from shop.
+                        This will delete from your wishlist. You can add it
+                        again from the shop.
                       </span>
                       <div className="flex justify-end gap-2">
                         <button
@@ -61,5 +70,4 @@ const Wishlist = () => {
     </div>
   );
 };
-
 export default Wishlist;
