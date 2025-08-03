@@ -49,7 +49,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-[#006699]">
-          Modave
+          <img src="banner.jpg" alt="" className="w-36" />
         </Link>
 
         {/* Mobile Hamburger */}

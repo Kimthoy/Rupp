@@ -21,7 +21,6 @@ const Home = () => {
     setIsCartOpen(true);
     toast.success(`${product.name} added to cart!`);
   };
-
   const featured = mockData.slice(0, 8);
   const sliderData = mockData.slice(0, 5);
 
