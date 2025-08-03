@@ -2,12 +2,15 @@ import { useRef, useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useCart } from "../../context/CartContext";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 const CartDrawer = ({ isOpen, onClose }) => {
   const drawerRef = useRef(null);
   const navigate = useNavigate();
   const { cartItems, removeFromCart } = useCart();
+
+  const [agreed, setAgreed] = useState(false);
+
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (drawerRef.current && !drawerRef.current.contains(e.target)) {
@@ -23,23 +26,19 @@ const CartDrawer = ({ isOpen, onClose }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isOpen, onClose]);
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * (item.quantity || 1),
     0
   );
 
-  const [agreed, setAgreed] = useState(false);
   return (
     <>
       {/* Overlay */}
@@ -53,7 +52,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
       {/* Drawer */}
       <div
         ref={drawerRef}
-        className={`fixed mb-6 top-0 right-0 h-full w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] md:w-96 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -65,7 +64,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Free shipping progress */}
+        {/* Free Shipping Progress */}
         <div className="p-4 bg-green-50">
           <div className="w-full h-2 bg-white border rounded-full relative">
             <div className="h-2 bg-green-600 w-3/4 rounded-full"></div>
@@ -78,7 +77,8 @@ const CartDrawer = ({ isOpen, onClose }) => {
           </p>
         </div>
 
-        <div className="max-h-60 overflow-y-auto divide-y">
+        {/* Items List */}
+        <div className="max-h-[300px] sm:max-h-60 overflow-y-auto divide-y">
           {cartItems.map((item, idx) => (
             <div key={idx} className="flex items-center gap-4 p-4">
               <img
@@ -97,14 +97,12 @@ const CartDrawer = ({ isOpen, onClose }) => {
                   </p>
                 )}
               </div>
-
               <button
                 onClick={() =>
                   toast((t) => (
                     <span className="text-sm">
                       Are you sure you want to remove{" "}
-                      <strong>{item.name}</strong>?<br />
-                      This will be removed from your cart.
+                      <strong>{item.name}</strong>?
                       <div className="mt-2 flex justify-end gap-2">
                         <button
                           onClick={() => {
@@ -141,14 +139,13 @@ const CartDrawer = ({ isOpen, onClose }) => {
           <span>🏷️ Coupon</span>
         </div>
 
-        {/* Subtotal and actions */}
+        {/* Footer */}
         <div className="p-4 mt-auto border-t">
           <div className="flex justify-between font-medium mb-3">
             <span>Subtotal</span>
-            <div className="flex justify-between font-medium mb-3">
-              <span>${subtotal.toFixed(2)}</span>
-            </div>
+            <span>${subtotal.toFixed(2)}</span>
           </div>
+
           <label className="flex items-start text-sm mb-4 gap-2">
             <input
               type="checkbox"
@@ -167,13 +164,23 @@ const CartDrawer = ({ isOpen, onClose }) => {
               </Link>
             </span>
           </label>
-          <div className="flex gap-3">
+
+          <div className="flex gap-3 flex-col sm:flex-row">
+            <button
+              className="w-full border px-4 py-2 rounded"
+              onClick={() => {
+                onClose();
+                navigate("/cart");
+              }}
+            >
+              View Cart
+            </button>
             <button
               onClick={() => {
                 onClose();
                 if (agreed) navigate("/checkout");
               }}
-              className={`flex-1 px-4 py-2 rounded ${
+              className={`w-full px-4 py-2 rounded ${
                 agreed
                   ? "bg-black text-white hover:bg-gray-900"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -183,11 +190,12 @@ const CartDrawer = ({ isOpen, onClose }) => {
               Check Out
             </button>
           </div>
+
           <p
-            className="text-center  text-sm mt-3  text-gray-500"
+            className="text-center text-sm mt-3 text-gray-500"
             onClick={onClose}
           >
-            <Link to="/"> OR CONTINUE SHOPPING</Link>
+            <Link to="/">OR CONTINUE SHOPPING</Link>
           </p>
         </div>
       </div>
