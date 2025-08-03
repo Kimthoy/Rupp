@@ -43,35 +43,34 @@ const Header = () => {
   return (
     <div className="bg-white shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-black">
+        <Link to="/" className="text-2xl font-bold text-[#006699]">
           Modave
         </Link>
-
-        {/* Menu */}
         <nav className="flex items-center gap-6">
-          <Link to="/" className="hover:text-red-500 font-medium">
+          <Link
+            to="/"
+            className="hover:text-red-500 font-medium text-[#006699]"
+          >
             Home
           </Link>
-          {categoryMenus.map((cat, idx) => (
-            <MegaMenu
-              key={idx}
-              title={cat.title}
-              category={cat.category}
-              subcategories={cat.subcategories}
-            />
-          ))}
+          <div className="text-[#006699] flex flex-1">
+            {categoryMenus.map((cat, idx) => (
+              <MegaMenu
+                key={idx}
+                title={cat.title}
+                category={cat.category}
+                subcategories={cat.subcategories}
+              />
+            ))}
+          </div>
         </nav>
-
-        {/* Icons */}
         <div className="flex gap-5">
-          <IoMdSearch className="cursor-pointer w-5  h-5 hover:text-red-500" />
           <Link to="/account">
-            <FaRegUser className="hover:text-red-500 w-5  h-5" />
+            <FaRegUser className="hover:text-red-500 w-6  h-6 text-[#006699]" />
           </Link>
           <div className="relative">
             <Link to="/compare">
-              <FaRandom className="hover:text-red-500 w-5 h-5" />
+              <FaRandom className="hover:text-red-500 w-6 h-6 text-[#006699]" />
             </Link>
 
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
@@ -80,17 +79,17 @@ const Header = () => {
           </div>
           <div className="relative">
             <Link to="/wishlist">
-              <FaRegHeart className="hover:text-red-500 w-5 h-5" />
+              <FaRegHeart className="hover:text-red-500 w-6 h-6 text-[#006699]" />
             </Link>
             {wishlist.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+              <span className="absolute -top-2 -right-2  bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                 {wishlist.length}
               </span>
             )}
           </div>
           <div className="relative">
             <MdShoppingCartCheckout
-              className="hover:text-red-500 w-5 h-5"
+              className="hover:text-red-500 w-6 h-6 text-[#006699]"
               onClick={() => setIsCartOpen(true)}
             />
             {cartItems.length > 0 && (

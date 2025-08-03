@@ -12,6 +12,11 @@ import ProductDetail from "./pages/product/ProductDetail";
 import { CompareProvider } from "./context/CompareContext";
 import ComparePage from "./pages/product/ComparePage";
 import Account from "./pages/account/Account";
+import CheckoutPage from "./pages/dashboard/CheckoutPage";
+import Categories from "./pages/category/Categories";
+import TermsAndConditions from "./pages/product/Terms";
+import CartDrawer from "./pages/cart/CartDrawer";
+import Footer from "./components/Footer";
 function App() {
   return (
     <WishlistProvider>
@@ -28,8 +33,13 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/compare" element={<ComparePage />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/cart" element={<CartDrawer />} />
             </Routes>
             <Toaster position="top-right" />
+            <Footer/>
           </BrowserRouter>
         </CompareProvider>
       </CartProvider>

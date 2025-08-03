@@ -1,33 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { mockData } from "../../data/mockData"; // adjust path as needed
+import { mockData } from "../../data/mockData";
 
-// Create category groups from mockData
-const groupedCategories = Object.entries(
-  mockData.reduce((acc, product) => {
-    const { category, image } = product;
-    if (!acc[category]) {
-      acc[category] = {
-        name: category.charAt(0).toUpperCase() + category.slice(1),
-        image,
+const groupedCategories = Object.values(
+  mockData.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = {
+        name: item.category.charAt(0).toUpperCase() + item.category.slice(1),
+        image: item.image,
+        path: `/category/${item.category}`,
         count: 1,
-        path: `/category/${category}`,
       };
     } else {
-      acc[category].count += 1;
+      acc[item.category].count += 1;
     }
     return acc;
   }, {})
-).map(([key, value]) => value);
+);
 
 const SuggestedCategories = () => {
   return (
     <div className="my-12 px-4">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Categories you might like</h2>
+        <h2 className="text-2xl font-bold text-[#006699]">
+          Categories you might like
+        </h2>
         <Link
           to="/categories"
-          className="text-sm font-medium underline hover:text-blue-600"
+          className="text-sm font-medium underline hover:text-blue-600 text-[#006699]"
         >
           View All Collection
         </Link>

@@ -1,121 +1,109 @@
 export const mockData = [
   {
-    id: "w1",
-    name: "Summer Dress",
-    image:
-      "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 49.99,
+    id: "c1",
+    name: "ខោជេីងធំ",
+    image: "/img/--1141829175299658664032653-c.jpg",
+    price: 8,
     category: "women",
   },
   {
-    id: "w2",
-    name: "Floral Skirt",
+    id: "c2",
+    name: "SEIKO ALBA Quartz",
     image:
-      "https://images.pexels.com/photos/6311395/pexels-photo-6311395.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 39.99,
-    category: "women",
+      "/img/seiko-alba-quartz-3-hands-genuine-belt-80258174879062990861212-b.jpg",
+    price: 10,
+    category: "accessories",
   },
   {
-    id: "w3",
-    name: "Denim Jacket",
-    image:
-      "https://images.pexels.com/photos/4947564/pexels-photo-4947564.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 59.99,
-    category: "women",
+    id: "c3",
+    name: "VENUS LS 1 pro",
+    image: "/img/venus-ls-1-pro-827696174494052210739675-b.jpg",
+    price: 49,
+    category: "accessories",
   },
   {
-    id: "w4",
-    name: "Party Gown",
-    image:
-      "https://images.pexels.com/photos/6311607/pexels-photo-6311607.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: "c4",
+    name: "Original Woman Timberland boost",
+    image: "/img/s-timberland-boost-460744175352091467780313-b.jpg",
     price: 89.99,
+    category: "accessories",
+  },
+  {
+    id: "c5",
+    name: "ខោជេីងប៉ោង",
+    image: "/img/--1141829175298811144347732-b.jpg",
+    price: 12,
     category: "women",
   },
-
-  // Men
   {
-    id: "m1",
-    name: "Men's Shirt",
-    image:
-      "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 39.99,
-    category: "men",
-  },
-  {
-    id: "m2",
-    name: "Casual Hoodie",
-    image:
-      "https://images.pexels.com/photos/5705490/pexels-photo-5705490.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 44.99,
-    category: "men",
-  },
-  {
-    id: "m3",
-    name: "Formal Blazer",
-    image:
-      "https://images.pexels.com/photos/1805600/pexels-photo-1805600.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 99.99,
-    category: "men",
-  },
-  {
-    id: "m4",
-    name: "Sports T-shirt",
-    image:
-      "https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 25.99,
-    category: "men",
-  },
-
-  // Kids
-  {
-    id: "k1",
-    name: "Kids Jacket",
-    image:
-      "https://images.pexels.com/photos/3661350/pexels-photo-3661350.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 29.99,
-    category: "kids",
-  },
-  {
-    id: "k2",
-    name: "Cartoon T-shirt",
-    image:
-      "https://images.pexels.com/photos/1648356/pexels-photo-1648356.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 15.99,
-    category: "kids",
-  },
-  {
-    id: "k3",
-    name: "Playwear Set",
-    image:
-      "https://images.pexels.com/photos/4556730/pexels-photo-4556730.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 35.99,
-    category: "kids",
-  },
-
-  // Accessories
-  {
-    id: "a1",
-    name: "Leather Bag",
-    image:
-      "https://images.pexels.com/photos/1667072/pexels-photo-1667072.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 59.99,
+    id: "c6",
+    name: "Juicy couture hand bag",
+    image: "/img/s-juicy-couture-hand-bag-1171265175084230121085066-b.jpg",
+    price: 15,
     category: "accessories",
   },
   {
-    id: "a2",
-    name: "Sunglasses",
-    image:
-      "https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 19.99,
-    category: "accessories",
+    id: "c7",
+    name: "រ៉ូបនារីក្បាលគីប",
+    image: "/img/--986198175412051079135722-b.jpg",
+    price: 5,
+    category: "women",
   },
   {
-    id: "a3",
-    name: "Leather Wallet",
-    image:
-      "https://images.pexels.com/photos/1661004/pexels-photo-1661004.jpeg?auto=compress&cs=tinysrgb&w=600",
-    price: 24.99,
-    category: "accessories",
+    id: "c8",
+    name: "Croptop body",
+    image: "/img/croptop-body-1076790175403206079669391-b.jpg",
+    price: 4,
+    category: "women",
+  },
+  {
+    id: "c9",
+    name: "kinderkraft lumi 2-in-1 baby",
+    image: "/img/1032944175074588250578458-b.jpg",
+    price: 110,
+    category: "kids",
+  },
+  {
+    id: "c10",
+    name: "Combi Car seat for baby",
+    image: "/img/17081205682-b.jpg",
+    price: 14.99,
+    category: "kids",
+  },
+  {
+    id: "c11",
+    name: "Sport Shorts",
+    image: "/img/900821-b.jpg",
+    price: 27.99,
+    category: "kids",
+  },
+  {
+    id: "c12",
+    name: "ចង្រ្កងសំរាប់កុមារ",
+    image: "/img/957-b.jpg",
+    price: 20,
+    category: "kids",
+  },
+  {
+    id: "c13",
+    name: "កង់សំរាប់កុមារ",
+    image: "/img/25-b.jpg",
+    price: 50,
+    category: "kids",
+  },
+  {
+    id: "c14",
+    name: "Lacoste T-Shirt Grand A",
+    image: "/img/08-b.jpg",
+    price: 64.99,
+    category: "men",
+  },
+  {
+    id: "c15",
+    name: "Original IC jean",
+    image: "/img/2-b.jpg",
+    price:20,
+    category: "men",
   },
 ];
 
@@ -180,7 +168,7 @@ export const customerReviews = [
     price: "$29.99",
   },
   {
-    name: "James O’Connor",
+    name: "James O'Connor",
     comment:
       "A+ shopping experience. The leather bag I got feels luxurious and worth every penny. Great craftsmanship!",
     image:

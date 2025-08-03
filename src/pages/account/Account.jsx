@@ -13,14 +13,14 @@ const Account = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
-      <h2 className="text-2xl font-bold mb-6">My Account</h2>
+      <h2 className="text-2xl font-bold mb-6 text-[#006699]">My Account</h2>
 
       {/* Tabs */}
       <div className="flex gap-4 mb-6 border-b">
         <button
-          className={`pb-2 border-b-2 ${
+          className={`pb-2 text-[#006699] border-b-2 ${
             tab === "profile"
-              ? "border-black font-semibold"
+              ? "border-[#006699] font-semibold"
               : "border-transparent"
           }`}
           onClick={() => setTab("profile")}
@@ -28,9 +28,9 @@ const Account = () => {
           Profile Info
         </button>
         <button
-          className={`pb-2 border-b-2 ${
+          className={`pb-2 text-[#006699] border-b-2 ${
             tab === "password"
-              ? "border-black font-semibold"
+              ? "border-[#006699] font-semibold"
               : "border-transparent"
           }`}
           onClick={() => setTab("password")}
@@ -38,9 +38,9 @@ const Account = () => {
           Change Password
         </button>
         <button
-          className={`pb-2 border-b-2 ${
+          className={`pb-2 border-b-2 text-[#006699] ${
             tab === "orders"
-              ? "border-black font-semibold"
+              ? "border-[#006699] font-semibold"
               : "border-transparent"
           }`}
           onClick={() => setTab("orders")}
@@ -54,7 +54,7 @@ const Account = () => {
         {tab === "profile" && (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 Full Name
               </label>
               <input
@@ -64,7 +64,7 @@ const Account = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 Email
               </label>
               <input
@@ -74,7 +74,7 @@ const Account = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 Phone
               </label>
               <input
@@ -84,7 +84,7 @@ const Account = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 Address
               </label>
               <textarea
@@ -92,7 +92,7 @@ const Account = () => {
                 className="mt-1 block w-full border px-4 py-2 rounded"
               ></textarea>
             </div>
-            <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
+            <button className="bg-[#006699] text-white px-4 py-2 rounded hover:bg-gray-800">
               Save Changes
             </button>
           </div>
@@ -101,7 +101,7 @@ const Account = () => {
         {tab === "password" && (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 Current Password
               </label>
               <input
@@ -110,7 +110,7 @@ const Account = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 New Password
               </label>
               <input
@@ -119,7 +119,7 @@ const Account = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-[#006699]">
                 Confirm New Password
               </label>
               <input
@@ -127,7 +127,7 @@ const Account = () => {
                 className="mt-1 block w-full border px-4 py-2 rounded"
               />
             </div>
-            <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
+            <button className="bg-[#006699] text-white px-4 py-2 rounded hover:bg-gray-800">
               Update Password
             </button>
           </div>

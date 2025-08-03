@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 const CustomerReviews = () => {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16 text-center">
-      <h2 className="text-3xl font-bold mb-2">Customer Say!</h2>
+      <h2 className="text-3xl font-bold mb-2 text-[#006699]">Customer Say!</h2>
       <p className="text-gray-600 mb-10">
         Our customers adore our products, and we constantly aim to delight them.
       </p>
