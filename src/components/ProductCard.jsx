@@ -48,14 +48,18 @@ const ProductCard = ({ product, onAddToCart = () => {} }) => {
 
         <button
           onClick={() => onAddToCart(product)}
-          className="absolute text-md bottom-4 left-1/2 transform -translate-x-1/2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-white hover:bg-black text-black px-2 py-2 shadow hover:text-white transition-all duration-300 ease-out z-20"
+          className="absolute sm:text-sm text-xs text-md bottom-4 left-1/2 transform -translate-x-1/2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 bg-white hover:bg-black text-black px-2 py-2 shadow hover:text-white transition-all duration-300 ease-out z-20"
         >
           ADD TO CART
         </button>
       </div>
       <div className="p-4 text-center">
-        <h3 className="text-gray-800 font-semibold mt-1">{product.name}</h3>
-        <p className="text-gray-800 font-semibold mt-1">${product.price}</p>
+        <h3 className="text-gray-800 font-semibold mt-1 sm:text-lg text-xs">
+          {product.name}
+        </h3>
+        <p className="text-gray-800 font-semibold mt-1 sm:text-lg text-xs">
+          ${product.price}
+        </p>
       </div>
     </div>
   );
