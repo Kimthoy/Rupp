@@ -43,7 +43,7 @@ const Topbar = () => {
   return (
     <div className="bg-[#006699] text-white text-sm px-4 py-2 flex justify-between items-center relative z-50">
       <div>
-        <span className="mr-4">📞 315-666-6688</span>
+        <span className="mr-4">📞 (+855) 096 614 3648</span>
         <span className="mr-4">📧 khmer23shop@gmail.com</span>
         <a href="/store" className="underline">
           Our Store

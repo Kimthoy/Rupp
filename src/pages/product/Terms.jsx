@@ -118,7 +118,7 @@ const TermsAndConditions = () => {
               pheangtiger03@gmail.com
             </a>
             <br />
-            📞 +855 016 95 92 42
+            📞 +855 096 614 3648
           </p>
         </div>
 
