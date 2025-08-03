@@ -46,11 +46,11 @@ const CheckoutPage = () => {
         pdf.addImage(imgData, "PNG", 0, 0, width, height);
         pdf.save("invoice.pdf");
       }
-     
-      setShowInvoice(false); 
-       alert("Order placed successfully! Invoice downloaded.");
-        navigate("/");
-    }, 500); 
+
+      setShowInvoice(false);
+      alert("Order placed successfully! Invoice downloaded.");
+      navigate("/");
+    }, 500);
   };
 
   return (
@@ -64,7 +64,6 @@ const CheckoutPage = () => {
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-8"
       >
-
         <div>
           <h2 className="text-xl font-semibold mb-4">Shipping Information</h2>
           <div className="space-y-4">
@@ -90,7 +89,6 @@ const CheckoutPage = () => {
             ))}
           </div>
         </div>
-
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Payment Information</h2>
