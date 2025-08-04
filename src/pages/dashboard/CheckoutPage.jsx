@@ -1,11 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useCart } from "../../context/CartContext";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
-  const [showInvoice, setShowInvoice] = useState(false);
+  const { cartItems } = useCart();
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -19,39 +18,44 @@ const CheckoutPage = () => {
     cvc: "",
   });
 
-  const invoiceRef = useRef(null);
-  const { cartItems } = useCart();
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const totalAmount = cartItems.reduce(
+      (acc, item) => acc + item.price * (item.quantity || 1),
+      0
+    );
+
+    const customerInfo = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      address: form.address,
+      city: form.city,
+      zip: form.zip,
+      country: form.country,
+    };
+
+    const orderData = {
+      items: cartItems,
+      total: totalAmount,
+      customer: customerInfo,
+    };
+
+    navigate("/success", { state: orderData });
+  };
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
     0
   );
   const total = subtotal;
-  const navigate = useNavigate();
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setShowInvoice(true);
-    setTimeout(async () => {
-      const input = invoiceRef.current;
-      if (input) {
-        const canvas = await html2canvas(input);
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF("p", "mm", "a4");
-        const width = pdf.internal.pageSize.getWidth();
-        const height = (canvas.height * width) / canvas.width;
-        pdf.addImage(imgData, "PNG", 0, 0, width, height);
-        pdf.save("invoice.pdf");
-      }
-
-      setShowInvoice(false);
-      alert("Order placed successfully! Invoice downloaded.");
-      navigate("/");
-    }, 500);
-  };
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
@@ -132,9 +136,14 @@ const CheckoutPage = () => {
 
           <button
             type="submit"
-            className="mt-6 w-full bg-black text-white py-3 rounded hover:bg-gray-900 transition"
+            className={`mt-6 w-full py-3 rounded transition ${
+              isLoading
+                ? "bg-gray-600 cursor-not-allowed"
+                : "bg-black hover:bg-gray-900"
+            } text-white`}
+            disabled={isLoading}
           >
-            Place Order
+            {isLoading ? "Processing..." : "Place Order"}
           </button>
 
           <p className="bg-red-100 px-4 py-2 text-red-600 mt-4 font-light text-sm rounded-xl">
@@ -144,43 +153,6 @@ const CheckoutPage = () => {
           </p>
         </div>
       </form>
-
-      {showInvoice && (
-        <div
-          ref={invoiceRef}
-          className="p-6 mt-12 bg-white shadow-lg w-[600px] absolute left-[-9999px] top-0"
-        >
-          <h2 className="text-2xl font-bold mb-4">Invoice</h2>
-          <p>
-            <strong>Name:</strong> {form.name}
-          </p>
-          <p>
-            <strong>Email:</strong> {form.email}
-          </p>
-          <p>
-            <strong>Phone:</strong> {form.phone}
-          </p>
-          <p>
-            <strong>Address:</strong> {form.address}, {form.city}, {form.zip},{" "}
-            {form.country}
-          </p>
-          <hr className="my-4" />
-          <h3 className="text-lg font-semibold mb-2">Items:</h3>
-          {cartItems.map((item, idx) => (
-            <div key={idx} className="text-sm flex justify-between">
-              <span>
-                {item.name} x {item.quantity || 1}
-              </span>
-              <span>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
-            </div>
-          ))}
-          <hr className="my-4" />
-          <p>
-            <strong>Total:</strong> ${total.toFixed(2)}
-          </p>
-          <p className="mt-4 text-sm">Thank you for your purchase!</p>
-        </div>
-      )}
     </div>
   );
 };

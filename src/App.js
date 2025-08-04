@@ -17,6 +17,8 @@ import Categories from "./pages/category/Categories";
 import TermsAndConditions from "./pages/product/Terms";
 import CartDrawer from "./pages/cart/CartDrawer";
 import Footer from "./components/Footer";
+import SuccessPage from "./pages/dashboard/SuccessPage";
+import OrderDetailsModal from "./pages/dashboard/OrderDetails";
 function App() {
   return (
     <WishlistProvider>
@@ -37,9 +39,11 @@ function App() {
               <Route path="/categories" element={<Categories />} />
               <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/cart" element={<CartDrawer />} />
+              <Route path="/success" element={<SuccessPage />} />
+              <Route path="/orderdetail" element={ <OrderDetailsModal/>} />
             </Routes>
             <Toaster position="top-right" />
-            <Footer/>
+            <Footer />
           </BrowserRouter>
         </CompareProvider>
       </CartProvider>

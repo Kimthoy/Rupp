@@ -6,14 +6,14 @@ import { toast } from "react-hot-toast";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = mockData.find((p) => p.id === id);
   const { addToCart } = useCart();
-
+  
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
-
+  
   const sizes = ["S", "M", "L", "XL"];
 
+  const product = mockData.find((p) => p.id === id);
   if (!product) return <p className="text-center py-10">Product not found</p>;
 
   const handleAddToCart = () => {
@@ -84,7 +84,7 @@ const ProductDetail = () => {
                 -
               </button>
               <span className="px-4">{quantity}</span>
-              <button
+              <button 
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
                 className="px-3 py-1 hover:bg-gray-100"

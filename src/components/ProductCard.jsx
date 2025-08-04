@@ -38,7 +38,7 @@ const ProductCard = ({ product, onAddToCart = () => {} }) => {
           >
             <FaRandom className="text-gray-700 text-sm" />
           </button>
-
+            
           <Link to={`/product/${product.id}`}>
             <button className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transform hover:scale-110">
               <FaEye className="text-gray-700 text-sm " />
